@@ -1,0 +1,113 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block title %}Register Student{% endblock %}
+
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <p class="eyebrow">STUDENT REGISTRATION</p>
+        <h1>Register a face</h1>
+        <p>Enter student details and capture a clear, front-facing image.</p>
+    </div>
+</div>
+
+<div class="split">
+
+    <form method="post" class="panel form">
+        {% csrf_token %}
+
+        <label>
+            Full Name
+            <input
+                name="name"
+                required
+                placeholder="Priyabrata Nayak"
+            >
+        </label>
+
+        <label>
+            Roll Number
+            <input
+                name="roll_number"
+                required
+                placeholder="24E114B09"
+            >
+        </label>
+
+        <label>
+            Email
+            <input
+                type="email"
+                name="email"
+                placeholder="student@example.com"
+            >
+        </label>
+
+        <input
+            type="hidden"
+            name="face_descriptor"
+            id="descriptor"
+        >
+
+        <div id="captureStatus" class="status">
+            Click Start Camera.
+        </div>
+
+        <button
+            class="btn primary"
+            type="submit"
+            id="saveBtn"
+            disabled
+        >
+            Register Student
+        </button>
+
+    </form>
+
+    <div class="panel camera">
+
+        <video
+            id="video"
+            autoplay
+            muted
+            playsinline
+        ></video>
+
+        <canvas id="overlay"></canvas>
+
+        <div class="camera-actions">
+
+            <button
+                type="button"
+                class="btn"
+                id="startCamera"
+            >
+                Start Camera
+            </button>
+
+            <button
+                type="button"
+                class="btn primary"
+                id="capture"
+                disabled
+            >
+                Capture Face
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+<script src="{% static 'attendance/face.js' %}"></script>
+
+<script>
+    FaceApp.registerMode();
+</script>
+
+{% endblock %}

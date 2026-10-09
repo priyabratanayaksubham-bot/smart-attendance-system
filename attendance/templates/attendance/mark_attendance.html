@@ -1,0 +1,51 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block title %}Mark Attendance{% endblock %}
+
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <p class="eyebrow">LIVE RECOGNITION</p>
+        <h1>Mark attendance</h1>
+        <p>Look at the camera. The system will identify the closest registered face.</p>
+    </div>
+</div>
+
+<div class="attendance-grid">
+    <div class="panel camera large">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="overlay"></canvas>
+
+        <div class="camera-actions">
+            <button class="btn primary" id="startCamera">Start Camera</button>
+            <button class="btn" id="scan" disabled>Scan Face</button>
+        </div>
+    </div>
+
+    <div class="panel result">
+        <div id="resultIcon">◉</div>
+        <h2 id="resultTitle">Ready to scan</h2>
+        <p id="resultText">
+            Start the camera, then scan when the face is clearly visible.
+        </p>
+
+        <div class="match">
+            <span>Recognition confidence</span>
+            <b id="confidence">—</b>
+        </div>
+
+        <a class="btn" href="/records/">Open Attendance Records</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+<script src="{% static 'attendance/face.js' %}"></script>
+
+<script>
+    FaceApp.attendanceMode();
+</script>
+
+{% endblock %}
